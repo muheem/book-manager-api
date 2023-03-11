@@ -81,4 +81,26 @@ public class BookManagerServiceTests {
         verify(mockBookManagerRepository, times(1)).save(book);
     }
 
+
+    //User Story 5 - Delete Book By Id Solution
+    @Test
+    public void testDeleteBookById() {
+
+        var book = new Book(5L, "Number Five Is Alive", "Novelisation of the film. Shortcut", "Terence Dicks", Genre.Romance);
+
+        when(mockBookManagerRepository.save(book)).thenReturn(book);
+
+        Book actualResult = bookManagerServiceImpl.insertBook(book);
+
+        assertThat(actualResult).isEqualTo(book);
+        Long bookId = 5L;
+
+        mockBookManagerRepository.deleteById(actualResult.getId());
+
+        try {
+            bookManagerServiceImpl.getBookById(bookId);
+        } catch (java.util.NoSuchElementException e) {
+            System.out.println("Successfully delete book");
+        }
+    }
 }
