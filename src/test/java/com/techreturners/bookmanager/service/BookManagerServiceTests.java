@@ -93,14 +93,14 @@ public class BookManagerServiceTests {
         Book actualResult = bookManagerServiceImpl.insertBook(book);
 
         assertThat(actualResult).isEqualTo(book);
-        Long bookId = 5L;
 
         mockBookManagerRepository.deleteById(actualResult.getId());
 
         try {
-            bookManagerServiceImpl.getBookById(bookId);
+            bookManagerServiceImpl.getBookById(actualResult.getId());
         } catch (java.util.NoSuchElementException e) {
             System.out.println("Successfully delete book");
         }
     }
+
 }
